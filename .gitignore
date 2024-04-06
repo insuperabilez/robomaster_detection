@@ -12,6 +12,8 @@ develop-eggs/
 dist/
 downloads/
 eggs/
+idea/
+.idea/
 .eggs/
 lib/
 Scripts/

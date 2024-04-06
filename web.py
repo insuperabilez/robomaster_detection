@@ -42,25 +42,25 @@ def app():
                 img = ep_camera.read_cv2_image(strategy='newest')
                 results=model(img)
                 for r in results:
-                boxes = r.boxes
-                for box in boxes:
-                    x1, y1, x2, y2 = box.xyxy[0]
-                    x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-                    cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                    boxes = r.boxes
+                    for box in boxes:
+                        x1, y1, x2, y2 = box.xyxy[0]
+                        x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+                        cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
-                    confidence = math.ceil((box.conf[0] * 100)) / 100
-                    print("Confidence --->", confidence)
+                        confidence = math.ceil((box.conf[0] * 100)) / 100
+                        print("Confidence --->", confidence)
 
-                    cls = int(box.cls[0])
-                    print("Class name -->", model.names[cls])
+                        cls = int(box.cls[0])
+                        print("Class name -->", model.names[cls])
 
-                    org = [x1, y1]
-                    font = cv2.FONT_HERSHEY_SIMPLEX
-                    fontScale = 0.5
-                    color = (0, 255, 0)
-                    thickness = 2
-                    cv2.putText(img, model.names[cls], org, font, fontScale, color, thickness)
-                    cv2.putText(img, str(confidence), [x2, y1 + 10], font, fontScale, color, thickness)
+                        org = [x1, y1]
+                        font = cv2.FONT_HERSHEY_SIMPLEX
+                        fontScale = 0.5
+                        color = (0, 255, 0)
+                        thickness = 2
+                        cv2.putText(img, model.names[cls], org, font, fontScale, color, thickness)
+                        cv2.putText(img, str(confidence), [x2, y1 + 10], font, fontScale, color, thickness)
                 # преобразуем изображение в формат, подходящий для Streamlit
                 frame = Image.fromarray(img)
 
