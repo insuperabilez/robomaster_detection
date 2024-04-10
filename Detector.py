@@ -113,14 +113,14 @@ class Detector:
                     print("Confidence --->", confidence)
 
                     cls = int(box.cls[0])
-                    print("Class name -->", self.model.names[cls])
+                    print("Class name -->", 'robot')
 
                     org = [x1, y1]
                     font = cv2.FONT_HERSHEY_SIMPLEX
                     fontScale = 0.5
                     color = (0, 255, 0)
                     thickness = 2
-                    cv2.putText(img, self.model.names[cls], org, font, fontScale, color, thickness)
+                    cv2.putText(img, 'robot', org, font, fontScale, color, thickness)
                     cv2.putText(img, str(confidence), [x2, y1 + 10], font, fontScale, color, thickness)
             return img
     def start_stream(self):
