@@ -78,7 +78,7 @@ class Detector:
                                          swapRB=True, crop=False)
             self.model.setInput(blob)
             detections = self.model.forward()
-            print(detections.shape[2])
+            
             for i in range(detections.shape[2]):
                 confidence = detections[0, 0, i, 2]
                 if confidence > 0.5:
@@ -91,7 +91,7 @@ class Detector:
                     cv2.rectangle(frame, (x_top_left, y_top_left), (x_bottom_right, y_bottom_right),
                                   (0, 255, 0))
 
-                    if class_id in classNames:
+                    if class_id in self.classNames:
                         label = self.classNames[class_id] + ": " + str(confidence)
                         (w, h), t = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
                         y_top_left = max(y_top_left, h)
