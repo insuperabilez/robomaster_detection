@@ -98,7 +98,7 @@ def change_window_content():
         print('Соединение установлено')
     except Exception:
         print('Соединение не установлено')
-        sys.exit()
+        #sys.exit()
     
     time.sleep(1)
     button1 = tk.Button(main_window, text="YOLO8n ", font=("Arial", 16), width=15,
