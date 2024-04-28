@@ -66,7 +66,7 @@ class Detector:
                     font = cv2.FONT_HERSHEY_SIMPLEX
                     fontScale = 0.5
                     color = (0, 255, 0)
-                    thickness = 2
+                    thickness = 1
                     cv2.putText(img, self.model.names[cls], org, font, fontScale, (255,255,255), 1)
                     cv2.putText(img, str(confidence), [x2,y1+10], font, fontScale, (255,255,255), 1)
             return img
@@ -95,8 +95,8 @@ class Detector:
                         label = self.classNames[class_id] + ": " + str(confidence)
                         (w, h), t = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
                         y_top_left = max(y_top_left, h)
-                        cv2.rectangle(frame, (x_top_left, y_top_left - h),
-                                      (x_top_left + w, y_top_left + t), (0, 0, 0), cv2.FILLED)
+                        #cv2.rectangle(frame, (x_top_left, y_top_left - h),
+                                      #(x_top_left + w, y_top_left + t), (0, 0, 0), #cv2.FILLED)
                         cv2.putText(frame, label, (x_top_left, y_top_left+10),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255))
             return frame
@@ -119,7 +119,7 @@ class Detector:
                     font = cv2.FONT_HERSHEY_SIMPLEX
                     fontScale = 0.5
                     color = (0, 255, 0)
-                    thickness = 2
+                    thickness = 1
                     cv2.putText(img, 'robomaster', org, font, fontScale, (255,255,255), 1)
                     cv2.putText(img, str(confidence), [x2, y1 + 10], font, fontScale, (255,255,255), 1)
             return img

@@ -64,12 +64,17 @@ def keyboard_listener():
 def stop_connection(buttons):
     global ep_camera
     global detector
+    global panel
     detector.stop_stream = True
-    #if ep_camera is not None:
-        #ep_camera.stop_video_stream()
+    if ep_camera is not None:
+        ep_camera.stop_video_stream()
     for button in buttons:
         button.config(state=tk.NORMAL)
     detector=None
+    image = Image.open('background.png')
+    imgtk = ImageTk.PhotoImage(image)
+    panel.imgtk = imgtk
+    panel.config(image=imgtk)
     gc.collect()
 
 
