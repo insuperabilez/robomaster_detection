@@ -71,7 +71,7 @@ def stop_connection(buttons):
         ep_camera.stop_video_stream()
     for button in buttons:
         button.config(state=tk.NORMAL)
-    #detector=None
+    detector=None
     image = Image.open('background.png')
     imgtk = ImageTk.PhotoImage(image)
     panel.imgtk = imgtk
