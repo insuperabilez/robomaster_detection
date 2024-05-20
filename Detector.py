@@ -1,7 +1,6 @@
 from ultralytics import YOLO
 import cv2
 import math
-from transformers import DetrImageProcessor, DetrForObjectDetection
 from PIL import Image,ImageTk
 import threading
 class Detector:
@@ -18,17 +17,7 @@ class Detector:
         #self.nn=nn
         if self.nn=='yolo':
             self.model=YOLO("yolo-Weights/yolov8n.pt").to(self.device)
-            self.classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
-                  "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
-                  "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella",
-                  "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat",
-                  "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup",
-                  "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli",
-                  "carrot", "hot dog", "pizza", "donut", "cake", "chair", "sofa", "pottedplant", "bed",
-                  "diningtable", "toilet", "tvmonitor", "laptop", "mouse", "remote", "keyboard", "cell phone",
-                  "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors",
-                  "teddy bear", "hair drier", "toothbrush"
-                  ]
+            self.classNames = self.model.names
         elif self.nn=='mobilenet':
             prototxt = "MobileNetSSD_deploy.prototxt"
             caffe_model = "MobileNetSSD_deploy.caffemodel"
@@ -67,8 +56,8 @@ class Detector:
                     fontScale = 0.5
                     color = (0, 255, 0)
                     thickness = 1
-                    cv2.putText(img, self.model.names[cls], org, font, fontScale, (255,255,255), 1)
-                    cv2.putText(img, str(confidence), [x2,y1+10], font, fontScale, (255,255,255), 1)
+                    cv2.putText(img, self.model.names[cls], org, font, fontScale, (255,255,255), 2)
+                    cv2.putText(img, str(confidence), [x2,y1+10], font, fontScale, (255,255,255), 2)
             return img
         elif self.nn=='mobilenet':
             frame = img.reshape(360, 640, 3)
@@ -120,8 +109,8 @@ class Detector:
                     fontScale = 0.5
                     color = (0, 255, 0)
                     thickness = 1
-                    cv2.putText(img, 'robomaster', org, font, fontScale, (255,255,255), 1)
-                    cv2.putText(img, str(confidence), [x2, y1 + 10], font, fontScale, (255,255,255), 1)
+                    cv2.putText(img, 'robomaster', org, font, fontScale, (255,255,255), 2)
+                    cv2.putText(img, str(confidence), [x2, y1 + 10], font, fontScale, (255,255,255), 2)
             return img
     def start_stream(self):
         self.ep_camera.start_video_stream(display=False, resolution="360p")

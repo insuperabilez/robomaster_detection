@@ -33,7 +33,7 @@ def rotate_camera(angle):
         yaw=180
     if yaw<-180:
         yaw=-180
-    ep_robot.gimbal.moveto(pitch,yaw).wait_for_completed()
+    ep_robot.gimbal.moveto(pitch=15,yaw).wait_for_completed()
 
 def on_press(key):
     global ep_robot
@@ -65,12 +65,13 @@ def stop_connection(buttons):
     global ep_camera
     global detector
     global panel
-    detector.stop_stream = True
+    if detector is not None:
+        detector.stop_stream = True
     if ep_camera is not None:
         ep_camera.stop_video_stream()
     for button in buttons:
         button.config(state=tk.NORMAL)
-    detector=None
+    #detector=None
     image = Image.open('background.png')
     imgtk = ImageTk.PhotoImage(image)
     panel.imgtk = imgtk
