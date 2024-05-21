@@ -18,7 +18,7 @@ detector = None
 buttons = []
 panel = None
 yaw=90
-pitch=0
+pitch=15
 
 stop_event = threading.Event()
 # Функция для вращения камеры на заданный угол
@@ -33,7 +33,7 @@ def rotate_camera(angle):
         yaw=180
     if yaw<-180:
         yaw=-180
-    ep_robot.gimbal.moveto(pitch=15,yaw).wait_for_completed()
+    ep_robot.gimbal.moveto(pitch,yaw).wait_for_completed()
 
 def on_press(key):
     global ep_robot
@@ -86,7 +86,7 @@ def create_detector(ep_robot, nn, panel, buttons, device='cpu'):
     detector = Detector(ep_robot, nn, panel, device)
     stream = threading.Thread(target=detector.start_stream)
     stream.start()
-    del detector
+    #del detector
     gc.collect()
 
 
