@@ -21,13 +21,10 @@ yaw=90
 pitch=15
 
 stop_event = threading.Event()
-# Функция для вращения камеры на заданный угол
 def rotate_camera(angle):
     global ep_robot
     global yaw
     global pitch
-    #current_angle = ep_robot.gimbal.yaw
-    #new_angle = current_angle + angle
     yaw=yaw+angle
     if yaw>180:
         yaw=180
@@ -38,22 +35,19 @@ def rotate_camera(angle):
 def on_press(key):
     global ep_robot
     
-    if ep_robot!=None:
+    if ep_robot!=None and key!=None:
         if key.char == 'w':
-            ep_robot.chassis.move(x=0.5, y=0, z=0, xy_speed=0.2)
+            ep_robot.chassis.move(x=0.5, y=0, z=0, xy_speed=0.2).wait_for_completed()
         elif key.char == 's':
-            ep_robot.chassis.move(x=-0.5, y=0, z=0, xy_speed=0.2)
+            ep_robot.chassis.move(x=-0.5, y=0, z=0, xy_speed=0.2).wait_for_completed()
         elif key.char == 'a':
-            ep_robot.chassis.move(x=0, y=-0.5, z=0, xy_speed=0.2)
+            ep_robot.chassis.move(x=0, y=-0.5, z=0, xy_speed=0.2).wait_for_completed()
         elif key.char == 'd':
-            ep_robot.chassis.move(x=0, y=0.5, z=0, xy_speed=0.2)
+            ep_robot.chassis.move(x=0, y=0.5, z=0, xy_speed=0.2).wait_for_completed()
         elif key.char == 'q':
-            rotate_camera(-10)  # Вращаем камеру на 10 градусов влево
+            rotate_camera(-10)  
         elif key.char == 'e':
-            rotate_camera(10)  # Вращаем камеру на 10 градусов вправо
-
-
-
+            rotate_camera(10)
 
 
 def keyboard_listener():
@@ -95,6 +89,7 @@ def change_window_content():
     global detector
     global device
     global ep_robot
+    global panel
     for widget in main_window.winfo_children():
         widget.destroy()
     try:

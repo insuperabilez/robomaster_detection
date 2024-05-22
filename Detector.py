@@ -119,6 +119,8 @@ class Detector:
             img = self.process_image(img)
             self.display_image(img)
         self.ep_camera.stop_video_stream()
+        img = cv2.imread('background.png')
+        self.display_image(img)
     def display_image(self,img):
         b, g, r = cv2.split(img)
         imgpil = cv2.merge((r, g, b))
